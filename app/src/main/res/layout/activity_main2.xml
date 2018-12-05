@@ -7,14 +7,88 @@
     tools:context=".Main2Activity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/class1header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="151dp"
-        android:layout_marginLeft="151dp"
-        android:layout_marginTop="205dp"
-        android:text="Activity 2" />
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="29dp"
+        android:text="Class/Event 1:" />
+
+    <TextView
+        android:id="@+id/class2header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/class1header"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="49dp"
+        android:layout_marginRight="49dp"
+        android:text="Class/Event 2:" />
+
+    <EditText
+        android:id="@+id/className1"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
+        android:layout_alignStart="@+id/class1header"
+        android:layout_alignLeft="@+id/class1header"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="131dp"
+        android:hint="Enter class name."
+        android:text="" />
+
+    <EditText
+        android:id="@+id/className2"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
+        android:hint="Enter class name."
+        android:layout_alignTop="@+id/className1"
+        android:layout_alignLeft="@+id/class2header"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:text="" />
+
+    <EditText
+        android:id="@+id/location1"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
+        android:layout_alignStart="@+id/class1header"
+        android:layout_alignLeft="@+id/class1header"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="273dp"
+        android:hint="Enter location."
+        android:text="" />
+
+    <EditText
+        android:id="@+id/location2"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
+        android:hint="Enter location."
+        android:layout_alignStart="@+id/className2"
+        android:layout_alignLeft="@+id/class2header"
+        android:layout_alignTop="@+id/location1"
+        android:text="" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/location2"
+        android:layout_alignEnd="@+id/location2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="22dp"
+        android:clickable="true"
+        android:text="Submit" />
+
 </RelativeLayout>
