@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignWithParentIfMissing="false"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentBottom="false"
-    android:background="@android:color/white"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        tools:context=".MainActivity">
+
     <View
         android:layout_width="385dp"
         android:layout_height="3dp"
@@ -151,5 +153,6 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>
