@@ -1,9 +1,11 @@
 package com.example.aaronaftab.walkable;
 
 import com.google.android.gms.location.places.*;
-//import com.google.android.gms.location.places.GeoDataClient;
-//import com.google.android.gms.location.places.Places;
-//import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.*;
+import com.google.android.gms.common.*;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +18,8 @@ import android.content.Intent;
 import android.widget.Button;
 import com.google.android.gms.common.api.*;
 import android.util.Log;
+import android.widget.EditText;
+import android.text.InputType;
 
 public class Main2Activity extends AppCompatActivity {
     private static final String TAG = "Main2Activity";
@@ -34,20 +38,20 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        EditText location1 = findViewById(R.id.location1);
+        location1.setInputType(InputType.TYPE_NULL);
+        location1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName());
+            public void onClick(View v) {
+                openPlaceSearch();
             }
-
+        });
+        location1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    openPlaceSearch();
+                }
             }
         });
     }
@@ -58,6 +62,17 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(start);
     }
 
-
-
+    public void openPlaceSearch() {
+        int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+        try {
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                            .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            System.out.println("You have an error: " + e);
+        } catch (GooglePlayServicesNotAvailableException e) {
+            System.out.println("You have an error: " + e);
+        }
+    }
 }
