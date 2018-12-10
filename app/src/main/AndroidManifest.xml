@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aaronaftab.walkable">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB40Nbnp3rdRn5F1I7NkATNFDqhGVGMS-Y"/>
     </application>
 
 </manifest>
