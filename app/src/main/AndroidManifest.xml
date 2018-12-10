@@ -12,14 +12,14 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB40Nbnp3rdRn5F1I7NkATNFDqhGVGMS-Y"/>
+            android:value="AIzaSyCHkBoIJ7X06EIkIiHaffgYY9673Z8k3M0"/>
     </application>
 
 </manifest>
