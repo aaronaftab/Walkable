@@ -1,5 +1,8 @@
 package com.example.aaronaftab.walkable;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import org.json.JSONObject;
 import com.google.android.gms.location.places.ui.*;
 import com.google.android.gms.common.*;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -33,23 +36,27 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        EditText location1 = findViewById(R.id.location1);
-        location1.setInputType(InputType.TYPE_NULL);
-        location1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPlaceSearch();
-            }
-        });
-        location1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    openPlaceSearch();
-                }
-            }
-        });
-    }
+//        EditText location1 = findViewById(R.id.location1);
+//        location1.setInputType(InputType.TYPE_NULL);
+//        location1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openPlaceSearch();
+//            }
+//        });
+//        location1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    openPlaceSearch();
+//                }
+//            }
+//        });
+
+        //String url = "https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters";
+        //JsonObjectRequest jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()) {
+
+        }
 
 
     public void openMainScreen() {
