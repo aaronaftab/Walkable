@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.Gravity;
 
 
 import org.w3c.dom.Text;
@@ -60,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
             ((RelativeLayout) relativeLayout).addView(secondEvent);
         } else {
             String err = "All fields must be filled.";
-            Toast.makeText(MainActivity.this, err, Toast.LENGTH_LONG).show();
+            Toast message = Toast.makeText(MainActivity.this, err, Toast.LENGTH_LONG);
+            message.setGravity(Gravity.CENTER, 0, 0);
+            message.show();
         }
 
 
