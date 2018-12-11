@@ -23,14 +23,6 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
-        Button button = findViewById(R.id.submitButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainScreen();
-            }
-        });
-
 
         final String TAG = "Main2Activity";
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
@@ -70,6 +62,16 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        Button button = findViewById(R.id.submitButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backToMain = new Intent();
+                //backToMain.putExtra("location1", autocompleteFragment.get);
+                openMainScreen();
+            }
+        });
+
         //String url = "https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters";
         //JsonObjectRequest jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()) {
 
@@ -79,4 +81,5 @@ public class Main2Activity extends AppCompatActivity {
         Intent start = new Intent(this, MainActivity.class);
         startActivity(start);
     }
+
 }
