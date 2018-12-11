@@ -14,6 +14,7 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 public class Main2Activity extends AppCompatActivity {
     @Override
@@ -63,30 +64,27 @@ public class Main2Activity extends AppCompatActivity {
         });
 
         Button button = findViewById(R.id.submitButton);
+        final Intent backToMain = new Intent(Main2Activity.this, MainActivity.class);
         final EditText className1 = findViewById(R.id.className1);
         final EditText className2 = findViewById(R.id.className2);
-        final Intent backToMain = new Intent();
-        button.setOnClickListener(new View.OnClickListener() {
+        final String cName1 = className1.getText().toString();
+        final String cName2 = className2.getText().toString();
+        final String loc1 = autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString();
+        final String loc2 = autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString();
+        button.setOnClickListener(new RelativeLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMain.putExtra("class1", className1.getText().toString());
-                backToMain.putExtra("class2", className2.getText().toString());
-                backToMain.putExtra("location1", autocompleteFragment
-                        .getText(R.id.place_autocomplete_fragment));
-                backToMain.putExtra("location2", autocompleteFragment2
-                        .getText(R.id.place_autocomplete_fragment2));
-                openMainScreen();
+                backToMain.putExtra("class1", cName1);
+                backToMain.putExtra("class2", cName2);
+                backToMain.putExtra("location1", loc1);
+                backToMain.putExtra("location2", loc2);
+                openMainScreen(backToMain);
             }
         });
 
-        //String url = "https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters";
-        //JsonObjectRequest jsonobjectrequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()) {
-
     }
 
-    public void openMainScreen() {
-        Intent start = new Intent(this, MainActivity.class);
-        startActivity(start);
+    public void openMainScreen(Intent callBack) {
+        startActivity(callBack);
     }
-
 }

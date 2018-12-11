@@ -9,7 +9,10 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import org.w3c.dom.Text;
 
@@ -31,35 +34,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        int randVal = (int) (Math.random() * 255);
 
-//        TextView three = findViewById(R.id.textView3);
-//        String val = getIntent().getStringExtra("class1")
-//                + getIntent().getStringExtra("class2")
-//                + getIntent().getStringExtra("location1")
-//                + getIntent().getStringExtra("location2");
-//        three.setText(val);
+        Intent intent = getIntent();
         //FIX ISSUE BELOW ON CHECKING IF TEXTVIEW FIELDS ARE FILLED
-        if (getIntent().hasExtra("class1") && getIntent().hasExtra("class2")
-                && getIntent().hasExtra("location1")
-                && getIntent().hasExtra("location2")) {
+        if (intent.hasExtra("class1") && intent.hasExtra("class2")
+                && intent.hasExtra("location1")
+                && intent.hasExtra("location2")) {
             //create textviews
-            TextView firstEvent = new TextView(this);
-            TextView secondEvent = new TextView(this);
+            TextView firstEvent = new TextView(MainActivity.this);
+            TextView secondEvent = new TextView(MainActivity.this);
             //set textview attributes
-            firstEvent.setLayoutParams(new RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams attributes = new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
-            secondEvent.setLayoutParams(new RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            attributes.addRule(RelativeLayout.BELOW, R.id.textView);
+            firstEvent.setLayoutParams(attributes);
+            secondEvent.setLayoutParams(attributes);
             firstEvent.setBackgroundColor(Color.GREEN);
             secondEvent.setBackgroundColor(Color.GREEN);
             firstEvent.setLines(2);
             secondEvent.setLines(2);
+            //add textview
+            View relativeLayout = findViewById(R.id.textView);
+            ((RelativeLayout) relativeLayout).addView(firstEvent);
+            ((RelativeLayout) relativeLayout).addView(secondEvent);
         } else {
-            TextView one = findViewById(R.id.textView6);
-            one.setBackgroundColor(Color.rgb(randVal, randVal, randVal));
+            String err = "All fields must be filled.";
+            Toast.makeText(MainActivity.this, err, Toast.LENGTH_LONG).show();
         }
 
 
