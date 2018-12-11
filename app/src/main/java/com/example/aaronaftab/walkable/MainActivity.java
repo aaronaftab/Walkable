@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
                 openAddClassActivity();
             }
         });
+
+        if (getIntent().hasExtra("class1") && getIntent().hasExtra("class2")
+                && getIntent().hasExtra("location1")
+                && getIntent().hasExtra("location2")) {
+            //TextView firstEvent = new TextView();
+            //firstEvent.setLayoutParams();
+        }
+
+        //getIntent().getStringExtra("class1");
+        //getIntent().getStringExtra("class2");
+
 
     }
 
