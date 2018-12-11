@@ -65,10 +65,10 @@ public class Main2Activity extends AppCompatActivity {
         Button button = findViewById(R.id.submitButton);
         final EditText className1 = findViewById(R.id.className1);
         final EditText className2 = findViewById(R.id.className2);
+        final Intent backToMain = new Intent();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backToMain = new Intent();
                 backToMain.putExtra("class1", className1.getText().toString());
                 backToMain.putExtra("class2", className2.getText().toString());
                 backToMain.putExtra("location1", autocompleteFragment
