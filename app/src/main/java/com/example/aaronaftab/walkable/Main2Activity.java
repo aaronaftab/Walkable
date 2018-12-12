@@ -42,7 +42,7 @@ public class Main2Activity extends AppCompatActivity {
     String loc2;
     PlaceAutocompleteFragment autocompleteFragment;
     PlaceAutocompleteFragment autocompleteFragment2;
-    String time;
+    public String time;
     String id1;
     String id2;
 
@@ -115,6 +115,7 @@ public class Main2Activity extends AppCompatActivity {
                 args[2] = loc1;
                 args[3] = loc2;
                 args[4] = getTime();
+                Log.d("got through", args[4]);
                 passInfo(Main2Activity.this, args);
                 startActivity(backToMain);
             }
@@ -148,11 +149,21 @@ public class Main2Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(final JSONObject response) {
                         try {
-                            Log.d(TAG, response.toString());
-                            JSONArray rows = response.getJSONArray("rows");
-                            JSONArray element = rows.getJSONArray(0);
-                            JSONObject duration = element.getJSONObject(1);
-                            time = duration.getString("text");
+                            Log.d(TAG, "Got into onResponse");
+                            //JSONObject json = new JSONObject(htt);
+                            JSONObject duration = response
+                                    .getJSONArray("rows")
+                                    .getJSONObject(0)
+                                    .getJSONArray("elements")
+                                    .getJSONObject(0)
+                                    .getJSONObject("duration");
+                            time = duration.get("text").toString();
+                            Log.d(TAG, time);
+                            Log.d(TAG, "Finished onResponse");
+//                            JSONArray rows = response.getJSONArray("rows");
+//                            JSONArray element = rows.getJSONArray(0);
+//                            //JSONObject duration = element.getJSONObject(1);
+
                         } catch (JSONException e) {
                             Log.i("check", "JSON issue");
                             //System.out.println("JSON issue");

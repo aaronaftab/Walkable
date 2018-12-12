@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             TextView thirdEvent = findViewById(R.id.class2input);
             //set text
             String[] values = getInfo(this);
+            Log.d("check", values[4]);
             firstEvent.setText(Html.fromHtml(values[0] + "\n" + values[2]));
             secondEvent.setText(values[4]);
             thirdEvent.setText(Html.fromHtml(values[1] + "\n" + values[3]));
