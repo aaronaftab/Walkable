@@ -40,7 +40,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="150dp"
         android:hint="Enter class name."
         android:text="" />
 
@@ -65,7 +65,7 @@
         android:layout_alignEnd="@+id/className1"
         android:layout_alignRight="@+id/className1"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="300dp"
         android:text="Location" />
 
     <fragment
@@ -76,9 +76,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="244dp"
-        android:layout_marginLeft="244dp"
-        android:layout_marginTop="132dp" />
+        android:layout_marginStart="219dp"
+        android:layout_marginLeft="219dp"
+        android:layout_marginTop="300dp" />
 
     <Button
         android:id="@+id/submitButton"
