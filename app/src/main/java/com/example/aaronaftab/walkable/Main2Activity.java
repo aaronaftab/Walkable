@@ -43,6 +43,9 @@ public class Main2Activity extends AppCompatActivity {
     PlaceAutocompleteFragment autocompleteFragment;
     PlaceAutocompleteFragment autocompleteFragment2;
     String time;
+    String id1;
+    String id2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 locationStorage.setText(place.getAddress());
+                id1 = place.getId();
                 //Log.i(TAG, "Place: " + place.getName());
             }
 
@@ -81,6 +85,8 @@ public class Main2Activity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 locationStorage2.setText(place.getAddress());
+                id2 = place.getId();
+
                 //Log.i(TAG, "Place: " + place.getName());
             }
 
@@ -110,21 +116,6 @@ public class Main2Activity extends AppCompatActivity {
                 args[3] = loc2;
                 args[4] = getTime();
                 passInfo(Main2Activity.this, args);
-//                if (cName1.length() != 0) {
-//                    backToMain.putExtra("class1", cName1);
-//                }
-//                if (cName2.length() != 0) {
-//                    backToMain.putExtra("class2", cName2);
-//                }
-//                if (loc1.length() != 0) {
-//                    backToMain.putExtra("location1", loc1);
-//                }
-//                if (loc2.length() != 0) {
-//                    backToMain.putExtra("location2", loc2);
-//                }
-//                //store time in an extra in backToMain.
-//                String time = getTime();
-//                backToMain.putExtra("time", time);
                 startActivity(backToMain);
             }
         });
@@ -145,12 +136,10 @@ public class Main2Activity extends AppCompatActivity {
 
 
     public String getTime() {
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(Main2Activity.this);
         final String TAG = "Main2Activity";
-        String url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins="
-                + autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString()
-                + "&destinations=" + autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString()
-                + "&key=" + getString(R.string.api_key) + "&mode=walking";
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:"
+                + id1 + "&destinations=place_id:" + id2 + "&mode=walking" + "&key=" + getString(R.string.api_key);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -160,10 +149,13 @@ public class Main2Activity extends AppCompatActivity {
                     public void onResponse(final JSONObject response) {
                         try {
                             Log.d(TAG, response.toString());
-                            JSONObject response1 = (JSONObject) response.get("duration");
-                            time = response1.getString("text");
+                            JSONArray rows = response.getJSONArray("rows");
+                            JSONArray element = rows.getJSONArray(0);
+                            JSONObject duration = element.getJSONObject(1);
+                            time = duration.getString("text");
                         } catch (JSONException e) {
-                            System.out.println("JSON issue");
+                            Log.i("check", "JSON issue");
+                            //System.out.println("JSON issue");
                             e.printStackTrace();
                         }
                     }
