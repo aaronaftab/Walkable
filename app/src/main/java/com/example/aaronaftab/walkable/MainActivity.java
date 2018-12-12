@@ -12,8 +12,6 @@ import android.text.Layout;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
-import java.util.Map;
-import java.util.HashMap;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TableLayout;
@@ -27,8 +25,7 @@ import android.util.Log;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    private int count = 0;
-    private int opened = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +48,16 @@ public class MainActivity extends AppCompatActivity {
             TextView thirdEvent = findViewById(R.id.class2input);
             //set text
             String[] values = getInfo(this);
-            Log.d("check", values[4]);
+            //Log.d("check", values[4]);
             firstEvent.setText(Html.fromHtml(values[0] + "\n" + values[2]));
             secondEvent.setText(values[4]);
             thirdEvent.setText(Html.fromHtml(values[1] + "\n" + values[3]));
 
 
 
-//        Intent intent = getIntent();
-//        String time = intent.getStringExtra("time");
-//        EditText setT = findViewById(R.id.timeText);
-//        setT.setText(time);
+
+            //MOST OF THE STUFF BELOW THIS IS FOR SETTING UP MULTIPLE TEXTVIEWS
         /*
-        //FIX ISSUE BELOW ON CHECKING IF TEXTVIEW FIELDS ARE FILLED
-        if (intent.hasExtra("class1") && intent.hasExtra("class2")
-                && intent.hasExtra("location1") && intent.hasExtra("location2")) {
-
-            RelativeLayout rellayout = new RelativeLayout(this);
-            //create textviews
-
-
             firstEvent.setId(count++);
             secondEvent.setId(count++);
             thirdEvent.setId(count++);

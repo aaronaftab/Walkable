@@ -114,8 +114,8 @@ public class Main2Activity extends AppCompatActivity {
                 args[1] = cName2;
                 args[2] = loc1;
                 args[3] = loc2;
-                args[4] = getTime();
-                Log.d("got through", args[4]);
+                args[4] = time;
+                //Log.d("got through", args[4]);
                 passInfo(Main2Activity.this, args);
                 startActivity(backToMain);
             }
@@ -131,12 +131,12 @@ public class Main2Activity extends AppCompatActivity {
         editor.putString("class2", passingArgs[1]);
         editor.putString("location1", passingArgs[2]);
         editor.putString("location2", passingArgs[3]);
-        editor.putString("time", passingArgs[4]);
+        //editor.putString("time", passingArgs[4]);
         editor.apply();
     }
 
 
-    public String getTime() {
+    public void getTime() {
         RequestQueue queue = Volley.newRequestQueue(Main2Activity.this);
         final String TAG = "Main2Activity";
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=place_id:"
@@ -177,6 +177,6 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         queue.add(jsonObjectRequest);
-        return time;
     }
+
 }
