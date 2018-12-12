@@ -8,6 +8,8 @@ import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.*;
 import android.util.Log;
 import com.google.android.gms.common.api.*;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,18 +31,14 @@ import org.json.JSONObject;
 
 public class Main2Activity extends AppCompatActivity {
     //objects to use in the methods below
-    final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-            getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-    final PlaceAutocompleteFragment autocompleteFragment2 = (PlaceAutocompleteFragment)
-            getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
-    final Intent backToMain = new Intent(this, MainActivity.class);
-    EditText className1 = findViewById(R.id.className1);
-    EditText className2 = findViewById(R.id.className2);
-    final String cName1 = className1.getText().toString();
-    final String cName2 = className2.getText().toString();
-    final String loc1 = autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString();
-    final String loc2 = autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString();
-    final String TAG = "Main2Activity";
+    EditText className1;
+    EditText className2;
+    String cName1;
+    String cName2;
+    String loc1;
+    String loc2;
+    PlaceAutocompleteFragment autocompleteFragment;
+    PlaceAutocompleteFragment autocompleteFragment2;
     String time;
 
     @Override
@@ -50,7 +48,11 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
-
+        final String TAG = "Main2Activity";
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        autocompleteFragment2 = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
         //set hints
         autocompleteFragment.setHint("Enter Location");
         autocompleteFragment2.setHint("Enter Location");
@@ -84,50 +86,61 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+
         Button button = findViewById(R.id.submitButton);
         button.setOnClickListener(new RelativeLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cName1.length() != 0) {
-                    backToMain.putExtra("class1", cName1);
-                }
-                if (cName2.length() != 0) {
-                    backToMain.putExtra("class2", cName2);
-                }
-                if (loc1.length() != 0) {
-                    backToMain.putExtra("location1", loc1);
-                }
-                if (loc2.length() != 0) {
-                    backToMain.putExtra("location2", loc2);
-                }
-                //store time in an extra in backToMain.
-                Log.i("check", "got message");
-                String time = getTime();
-                Log.i("check", "JSON request worked.");
-                backToMain.putExtra("time", time);
-                openMainScreen(backToMain);
+                final Intent backToMain = new Intent(Main2Activity.this, MainActivity.class);
+                String[] args = new String[5];
+                className1 = findViewById(R.id.className1);
+                className2 = findViewById(R.id.className2);
+                args[0] = className1.getText().toString();
+                args[1] = className2.getText().toString();
+                args[2] = autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString();
+                args[3] = autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString();
+                args[4] = getTime();
+                passInfo(Main2Activity.this, args);
+//                if (cName1.length() != 0) {
+//                    backToMain.putExtra("class1", cName1);
+//                }
+//                if (cName2.length() != 0) {
+//                    backToMain.putExtra("class2", cName2);
+//                }
+//                if (loc1.length() != 0) {
+//                    backToMain.putExtra("location1", loc1);
+//                }
+//                if (loc2.length() != 0) {
+//                    backToMain.putExtra("location2", loc2);
+//                }
+//                //store time in an extra in backToMain.
+//                String time = getTime();
+//                backToMain.putExtra("time", time);
+                startActivity(backToMain);
             }
         });
 
     }
 
-    public void openMainScreen(Intent callBack) {
-        startActivity(callBack);
+
+    public static void passInfo(Context context, String[] passingArgs) {
+        SharedPreferences prefs = context.getSharedPreferences("ClassLoc", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("class1", passingArgs[0]);
+        editor.putString("class2", passingArgs[1]);
+        editor.putString("location1", passingArgs[2]);
+        editor.putString("location2", passingArgs[3]);
+        editor.putString("time", passingArgs[4]);
+        editor.commit();
     }
 
-    public String getLocation(PlaceAutocompleteFragment search, int id) {
-        return search.getText(id).toString();
-    }
-
-    public void saveTime(String input) {
-        time = input;
-    }
 
     public String getTime() {
         RequestQueue queue = Volley.newRequestQueue(this);
+        final String TAG = "Main2Activity";
         String url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins="
-                + getLocation(autocompleteFragment, R.id.place_autocomplete_fragment)
-                + "&destinations=" + getLocation(autocompleteFragment2, R.id.place_autocomplete_fragment2)
+                + autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString()
+                + "&destinations=" + autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString()
                 + "&key=" + getString(R.string.api_key) + "&mode=walking";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -138,9 +151,9 @@ public class Main2Activity extends AppCompatActivity {
                     public void onResponse(final JSONObject response) {
                         try {
                             Log.d(TAG, response.toString());
-                            String t = response.getString("time");
-                            saveTime(t);
+                            time = response.getString("time");
                         } catch (JSONException e) {
+                            System.out.println("JSON issue");
                             e.printStackTrace();
                         }
                     }

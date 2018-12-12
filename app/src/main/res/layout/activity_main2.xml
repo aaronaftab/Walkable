@@ -65,8 +65,7 @@
         android:layout_alignEnd="@+id/className1"
         android:layout_alignRight="@+id/className1"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
-        android:text="Location" />
+        android:layout_marginTop="300dp" />
 
     <fragment
         android:id="@+id/place_autocomplete_fragment2"
