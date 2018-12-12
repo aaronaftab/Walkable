@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -33,6 +34,8 @@ public class Main2Activity extends AppCompatActivity {
     //objects to use in the methods below
     EditText className1;
     EditText className2;
+    TextView locationStorage;
+    TextView locationStorage2;
     String cName1;
     String cName2;
     String loc1;
@@ -53,6 +56,8 @@ public class Main2Activity extends AppCompatActivity {
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment2 = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment2);
+        locationStorage = findViewById(R.id.locStorage1);
+        locationStorage2 = findViewById(R.id.locStorage2);
         //set hints
         autocompleteFragment.setHint("Enter Location");
         autocompleteFragment2.setHint("Enter Location");
@@ -61,7 +66,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                autocompleteFragment.setText(place.getAddress());
+                locationStorage.setText(place.getAddress());
                 //Log.i(TAG, "Place: " + place.getName());
             }
 
@@ -75,7 +80,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                autocompleteFragment2.setText(place.getAddress());
+                locationStorage2.setText(place.getAddress());
                 //Log.i(TAG, "Place: " + place.getName());
             }
 
@@ -88,17 +93,21 @@ public class Main2Activity extends AppCompatActivity {
 
 
         Button button = findViewById(R.id.submitButton);
+        className1 = findViewById(R.id.className1);
+        className2 = findViewById(R.id.className2);
         button.setOnClickListener(new RelativeLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Intent backToMain = new Intent(Main2Activity.this, MainActivity.class);
                 String[] args = new String[5];
-                className1 = findViewById(R.id.className1);
-                className2 = findViewById(R.id.className2);
-                args[0] = className1.getText().toString();
-                args[1] = className2.getText().toString();
-                args[2] = autocompleteFragment.getText(R.id.place_autocomplete_fragment).toString();
-                args[3] = autocompleteFragment2.getText(R.id.place_autocomplete_fragment2).toString();
+                cName1 = className1.getText().toString();
+                cName2 = className2.getText().toString();
+                loc1 = locationStorage.getText().toString();
+                loc2 = locationStorage2.getText().toString();
+                args[0] = cName1;
+                args[1] = cName2;
+                args[2] = loc1;
+                args[3] = loc2;
                 args[4] = getTime();
                 passInfo(Main2Activity.this, args);
 //                if (cName1.length() != 0) {
@@ -131,7 +140,7 @@ public class Main2Activity extends AppCompatActivity {
         editor.putString("location1", passingArgs[2]);
         editor.putString("location2", passingArgs[3]);
         editor.putString("time", passingArgs[4]);
-        editor.commit();
+        editor.apply();
     }
 
 
@@ -151,7 +160,8 @@ public class Main2Activity extends AppCompatActivity {
                     public void onResponse(final JSONObject response) {
                         try {
                             Log.d(TAG, response.toString());
-                            time = response.getString("time");
+                            JSONObject response1 = (JSONObject) response.get("duration");
+                            time = response1.getString("text");
                         } catch (JSONException e) {
                             System.out.println("JSON issue");
                             e.printStackTrace();

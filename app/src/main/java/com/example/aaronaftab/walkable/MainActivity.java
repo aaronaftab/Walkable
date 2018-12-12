@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Layout;
 import android.view.View;
 import android.content.Intent;
@@ -45,31 +46,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (opened != 0) {
-            TableLayout tablelayout = findViewById(R.id.TableLayout);
-            TableRow row = (TableRow) tablelayout.getChildAt(count++);
-            TextView firstEvent = new TextView(MainActivity.this);
-            TextView secondEvent = new TextView(MainActivity.this);
-            TextView thirdEvent = new TextView(MainActivity.this);
-            TableLayout.LayoutParams layoutparams = new TableLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-            firstEvent.setLayoutParams(layoutparams);
-            secondEvent.setLayoutParams(layoutparams);
-            thirdEvent.setLayoutParams(layoutparams);
+            TextView firstEvent = findViewById(R.id.class1input);
+            TextView secondEvent = findViewById(R.id.time);
+            TextView thirdEvent = findViewById(R.id.class2input);
             //set text
-            Map<String, ?> values = getInfo(this);
-            firstEvent.setText((String) values.get("class1"));
-            secondEvent.setText((String) (values.get("time")));
-            thirdEvent.setText((String) values.get("class2"));
+            String[] values = getInfo(this);
+            firstEvent.setText(Html.fromHtml(values[0] + "\n" + values[2]));
+            secondEvent.setText(values[4]);
+            thirdEvent.setText(Html.fromHtml(values[1] + "\n" + values[3]));
 
-            row.addView(firstEvent);
-            row.addView(secondEvent);
-            row.addView(thirdEvent);
-
-            this.setContentView(tablelayout, new TableLayout.LayoutParams(
-                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-        }
-        opened++;
 
 
 //        Intent intent = getIntent();
@@ -130,9 +115,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static Map<String, ?> getInfo(Context context) {
+    public static String[] getInfo(Context context) {
+        String[] inputs = new String[5];
         SharedPreferences prefs = context.getSharedPreferences("ClassLoc", MODE_PRIVATE);
-        return prefs.getAll();
+        inputs[0] = prefs.getString("class1", "");
+        inputs[1] = prefs.getString("class2", "");
+        inputs[2] = prefs.getString("location1", "");
+        inputs[3] = prefs.getString("location2", "");
+        inputs[4] = prefs.getString("time", "");
+        return inputs;
     }
 
     public void openAddClassActivity() {

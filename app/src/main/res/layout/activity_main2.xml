@@ -91,6 +91,29 @@
         android:focusable="true"
         android:text="Submit" />
 
+    <TextView
+        android:id="@+id/locStorage1"
+        android:layout_width="132dp"
+        android:layout_height="55dp"
+        android:layout_above="@+id/place_autocomplete_fragment"
+        android:layout_alignStart="@+id/place_autocomplete_fragment"
+        android:layout_alignLeft="@+id/place_autocomplete_fragment"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="-300dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/locStorage2"
+        android:layout_width="129dp"
+        android:layout_height="51dp"
+        android:layout_above="@+id/place_autocomplete_fragment"
+        android:layout_alignStart="@+id/place_autocomplete_fragment2"
+        android:layout_alignLeft="@+id/place_autocomplete_fragment2"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="-300dp"
+        android:text="" />
 
 
 </RelativeLayout>
